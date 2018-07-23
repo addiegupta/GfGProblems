@@ -2,43 +2,40 @@
 
 GeeksForGeeks: Convert array into Zig-Zag fashion
 
-Link to Problem: https://practice.geeksforgeeks.org/problems//unsorted-array/0
+Link to Problem: https://practice.geeksforgeeks.org/problems/convert-array-into-zig-zag-fashion/0
 
 Difficulty: Easy
 
-Given an unsorted array of size N. Find the first element in array such that all of its left elements are smaller and all right elements to it are greater than it.
-
-Note: Left and right side elements can be equal to required element. And extreme elements cannot be required element.
+Given an array of distinct elements, rearrange the elements of array in zig-zag fashion in O(n) time. The converted array should be in form a < b > c < d > e < f.The relative order of elements is same in the output i.e you have to iterate on the original array only.
 
 Input:
-The first line of input contains an integer T denoting the number of test cases. Then T test cases follow. Each test case consists of two lines. First line of each test case contains an Integer N denoting size of array and the second line contains N space separated array elements.
+The first line of input contains an integer T denoting the number of test cases. The description of T test cases follows.
+The first line of each test case contains a single integer N denoting the size of array.
+The second line contains N space-separated integers A1, A2, ..., AN denoting the elements of the array.
 
 Output:
-For each test case, in a new line print the required element. If no such element present in array then print -1.
+Print the array in Zig-Zag fashion.
 
 Constraints:
-1<=T<=100
-3<=N<=106
-1<=A[i]<=106
+1 ≤ T ≤ 100
+1 ≤ N ≤ 100
+0 ≤A[i]<=10000
 
 Example:
 Input:
-3
-4
-4 2 5 7
-3
-11 9 12
-6
-4 3 2 7 8 9
-
-Output:
-5
--1
+2
 7
+4 3 7 8 6 2 1
+4
+1 4 3 2
+Output:
+3 7 4 8 2 6 1
+1 4 2 3
+
+
 */
 
 #include<bits/stdc++.h>
-#define ll long long int
 using namespace std;
 int main()
 {
@@ -46,42 +43,29 @@ int main()
  	cin>>t;
 
  	while(t--){
- 		ll n,i,j,m=0;
+ 		int i,n,flag=0;
  		cin>>n;
- 		ll* a = new ll[n];
+ 		int* a = new int[n];
  		for(i=0;i<n;i++){
  			cin>>a[i];
  		}
- 		// Flag to check if element was found or not
- 		int f=0;
- 		for(i=1;i<n-1;i++){
- 			int f1=1,f2=1;
- 			// Check left side for larger elements than current element
- 			for(j=0;j<i;j++){
- 				if(a[j]>a[i]){
- 					f1=0;
- 					break;
- 				}
- 			}
- 			// Check right side only if left side elements are smaller
- 			if(f1){
-
-	 			for(j=i+1;j<n;j++){
-	 				if(a[j]<a[i]){
-	 					f2=0;
-	 					break;
-	 				}
-	 			}
- 				if(f2){
- 					cout<<a[i]<<endl;
- 					f=1;
- 					break;
- 				}
- 			}
- 		}
- 		if(!f){
- 			cout<<"-1"<<endl;
- 		}
+ 		for(i=0;i<n-1;i++){
+          	if(!flag){
+          		if(a[i]>a[i+1]){
+          		 	swap(a[i],a[i+1]);
+          		}
+          	}
+          	if(flag){
+          		if(a[i]<a[i+1]){
+          			swap(a[i],a[i+1]);
+          		}
+          	}
+          	flag=!flag;
+    }
+    for(i=0;i<n;i++){
+          cout<<a[i]<<" "; 
+ 	}
+      cout<<endl;
 	}	
 	return 0;
 }
