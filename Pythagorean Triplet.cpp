@@ -54,22 +54,26 @@ int main()
  		sort(a,a+n);
  		// Flag to check if triplet has been found
  		int f=0;
- 		for(i=0;i<n-2;i++){
- 			for(j=i+1;j<n-1;j++){
- 				for(k=j+1;k<n;k++){
- 					if(a[k]==a[i]+a[j]){
- 						f=1;
- 						break;
- 					}
- 				}
- 				if(f){
- 				    break;
- 				}
- 			}
- 			if(f){
- 			    break;
- 			}
- 		}
+ 		for(int i=n-1;i>1;--i){
+ 			// One pointer at first index and other at second last element initially
+            int ptr1=0,ptr2=i-1;
+            while(ptr1<ptr2){
+            	// Triplet found
+                if(a[ptr1]+a[ptr2]==a[i]){
+                    f=1;
+                    break;
+                }
+                // Value is exceeding required sum, reduce sum by moving second pointer to left
+                else if((a[ptr1]+a[ptr2])>a[i]) 
+                    ptr2--;
+                // Value is less than required sum, increase sum by moving first pointer to right
+                else 
+                    ptr1++;
+            }
+            if(f){
+                break;
+            }
+        }
  		delete a;
  		if (f)
  		{
