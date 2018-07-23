@@ -1,8 +1,8 @@
 /*
 
-GeeksForGeeks: Element with left side smaller and right side greater
+GeeksForGeeks: Convert array into Zig-Zag fashion
 
-Link to Problem: https://practice.geeksforgeeks.org/problems/unsorted-array/0
+Link to Problem: https://practice.geeksforgeeks.org/problems//unsorted-array/0
 
 Difficulty: Easy
 
