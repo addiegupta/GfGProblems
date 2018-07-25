@@ -1,122 +1,143 @@
 /*
 
-GeeksForGeeks: Reverse a linked list
+GeeksForGeeks: Rotate a linked list
 
 Link to Problem:https://practice.geeksforgeeks.org/problems/reverse-a-linked-list/1
 
 Difficulty: Easy
 
-Given pointer to the head node of a linked list, the task is to reverse the linked list.
+Given a singly linked list, rotate the linked list counter-clockwise by k nodes. Where k is a given positive integer smaller than or equal to length of the linked list. For example, if the given linked list is 10->20->30->40->50->60 and k is 4, the list should be modified to 50->60->10->20->30->40.
 
 Input:
-You need to complete a method reverse() that takes head as argument and returns new head.
-There are multiple test cases. For each test case, this method will be called individually.  The first line of input contains number of test cases.  Every test case has two lines, number of nodes first line and data values in next line.
+
+In this problem, complete the method which takes two argument: the head of the linked list and int k. We should not read any input from stdin/console.
+The struct Node has a data part which stores the data and a next pointer which points to the next element of the linked list. 
+There are multiple test cases. For each test case, this method will be called individually.
 
 Output:
-Reverse the linked list and return head of the modified list.
+Rotate the link list from index k and return its new head pointer.
 
+
+Note: If you use "Test" or "Expected Output Button" use below example format
 
 Example:
 Input:
 1
-6
-1 2 3 4 5 6
+8
+1 2 3 4 5 6 7 8
+4
 
 Output:
-6 5 4 3 2 1
+5 6 7 8 1 2 3 4
+
 */
 {
-//Initial Template for C++
-//to find n'th Node in linked list
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
 #include<iostream>
-#include<stack>
 using namespace std;
-/* Link list Node */
-struct Node
+struct node
 {
     int data;
-    struct Node* next;
-};
-void append(struct Node** head_ref, struct Node **tail_ref,
-            int new_data)
+    struct node* next;
+}*head;
+void rotate(struct node **head_ref, int k);
+  void insert()
 {
-    struct Node* new_node = new Node;
-    new_node->data  = new_data;
-    new_node->next = NULL;
-    if (*head_ref == NULL)
-        *head_ref = new_node;
-    else
-        (*tail_ref)->next = new_node;
-    *tail_ref = new_node;
-}
-/* Function to get the middle of the linked list*/
-struct Node *reverse(struct Node *head);
-void printList(struct Node *head)
-{
-    struct Node *temp = head;
-    while (temp != NULL)
+    int n,i,value;
+    struct node *temp;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
     {
-       printf("%d ", temp->data);
-       temp  = temp->next;
-    }
-}
-/* Driver program to test above function*/
-int main()
-{
-    int T,n,l;
-    cin>>T;
-    while(T--)
-    {
-        struct Node *head = NULL,  *tail = NULL;
-        cin>>n;
-        for (int i=1; i<=n; i++)
+        scanf("%d",&value);
+        if(i==0)
         {
-            cin>>l;
-            append(&head, &tail, l);
+            head=(struct node *) malloc( sizeof(struct node) );
+            head->data=value;
+            head->next=NULL;
+            temp=head;
+            continue;
         }
-       head = reverse(head);
-       printList(head);
-       cout << endl;
+        else
+        {
+            temp->next= (struct node *) malloc( sizeof(struct node) );
+            temp=temp->next;
+            temp->data=value;
+            temp->next=NULL;
+        }
     }
-    return 0;
 }
+void printList(struct node *node)
+{
+    while (node != NULL)
+    {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("
+");
 }
-Node* addNode(Node *head,int data);
+/* Drier program to test above function*/
+int main(void)
+{
+    /* Start with the empty list */
+    int t,k,n,value;
+     /* Created Linked list is 1->2->3->4->5->6->7->8->9 */
+     scanf("%d",&t);
+     while(t--)
+     {
+     insert();
+     scanf("%d",&k);
+     rotate(&head,k);
+     printList(head);
+     }
+     return(0);
+}
+
+}
 
 /*Please note that it's Function problem i.e.
 you need to write your solution in the form of Function(s) only.
 Driver Code to call/invoke your function is mentioned above.*/
 
-//function Template for C++
-/* Linked List Node structure
-   struct Node  {
+/*
+  Rotate a linked list after node k
+  The input list will have at least one element  
+  Return pointer to head of rotated linked list 
+  Node is defined as 
+  struct node
+  {
      int data;
-     Node *next;
+     struct node *next;
   }
 */
-// Should reverse list and return new head.
-Node* reverse(Node *head)
-{
-  // Your code here
-  Node* newList = NULL;
-  Node* trav = head;
-  while(trav!=NULL){
-      newList = addNode(newList,trav->data);
-      trav = trav->next;
-  }
-  return newList;
-    
-}
+void rotate(struct node **head_ref, int k)
+{ 
+  // Complete this method
+  
+    struct node* trav = *head_ref;
+    int i=0;
+    // Stores original head position
+    struct node* oldHead = *head_ref;
+    while(trav!=NULL){
+    	// (k-1)th node found and it is not last node
+        if(i==k-1 && trav->next!=NULL){
+            // Set this as new head
+            *head_ref=trav->next;
+            // List ends here
+            trav->next=NULL;
+            // Resume traversal from new head node
+            trav=*head_ref;
+        }
+        else{
 
-Node* addNode(Node *head,int data){
-    Node* temp = new Node;
-    temp->data = data;
-    temp->next = NULL;
-    if (head != NULL){
-        temp->next = head;
+            if(trav->next==NULL&&i!=k-1){
+            	// List ends loop around with original head
+                trav->next = oldHead;
+                break;
+            }
+            trav=trav->next;
+        }
+        i++;
     }
-    head = temp;
-    return head;
 }
