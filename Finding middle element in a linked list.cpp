@@ -2,7 +2,7 @@
 
 GeeksForGeeks: Finding middle element in a linked list
 
-Link to Problem: https://practice.geeksforgeeks.org/problems/finding-middle-element-in-a-linked-list/0
+Link to Problem: https://practice.geeksforgeeks.org/problems/finding-middle-element-in-a-linked-list/1
 
 Difficulty: Basic
 
