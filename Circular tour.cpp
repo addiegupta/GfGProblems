@@ -37,6 +37,8 @@ Output
 Explanation:
 Above there are 4 petrol pumps with amount of petrol and distance to next petrol pump value pairs as {4, 6}, {6, 5}, {7, 3} and {4, 5}. The first point from where truck can make a circular tour is 2nd petrol pump. Output in this case is 1 (index of 2nd petrol pump).
 
+References:
+https://www.geeksforgeeks.org/find-a-tour-that-visits-all-stations/
 
 */
 
