@@ -46,6 +46,9 @@ In the first test case for query
 1 1    the stack will be {2 1}
 3       min element will be 1
 
+
+References: https://www.geeksforgeeks.org/design-a-stack-that-supports-getmin-in-o1-time-and-o1-extra-space/
+
 */
 
 {
