@@ -168,7 +168,7 @@ bool isIdentical(Node *r1, Node *r2)
 	bool ret = traverse(r1,r2);
 
     return ret;
-}
+}		
 bool traverse(Node* r1,Node* r2){
 	if(!r1&&!r2) return true;
 	else if(!r1||!r2) return false;
