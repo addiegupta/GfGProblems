@@ -80,7 +80,7 @@ Tree is mirror image of itself i.e. tree is symmetric
 
 Note:The Input/Ouput format and Example given are used for system's internal purpose, and should be used by a user for Expected Output only. As it is a function problem, hence a user should not read any input from stdin/console. The task is to complete the function specified, and not to write the full code.
 
-
+References: https://www.geeksforgeeks.org/symmetric-tree-tree-which-is-mirror-image-of-itself/
 
 */
 {
