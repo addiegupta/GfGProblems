@@ -94,19 +94,17 @@ int main()
 	return 0;
 }
 void color(int b,int x,int y,int k){
+	
+	// Return if index not in matrix
+	if(x<0 || x>=n || y<0 || y>=m) return;
+	// Return if value is not equal to required value
+	if(a[x][y]!=b) return;
+
 	// Fill pixel with new value
 	a[x][y]=k;
-	// Spread the new value recursively if required value is present
-	if(x-1>=0 && a[x-1][y]==b){
-		color(b,x-1,y,k);
-	}
-	if(y-1>=0 && a[x][y-1]==b){
-		color(b,x,y-1,k);
-	}
-	if(x+1<n && a[x+1][y]==b){
-		color(b,x+1,y,k);
-	}
-	if(y+1<m && a[x][y+1]==b){
-		color(b,x,y+1,k);
-	}
+	// Spread the new value recursively 
+	color(b,x-1,y,k);
+	color(b,x+1,y,k);
+	color(b,x,y-1,k);
+	color(b,x,y+1,k);
 }
