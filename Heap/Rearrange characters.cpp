@@ -32,6 +32,7 @@ Output:
 1
 0
 
+
 */
 
 #include<bits/stdc++.h>
