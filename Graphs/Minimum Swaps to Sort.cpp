@@ -41,6 +41,7 @@ Output:
 2
 
 
+References: https://www.geeksforgeeks.org/minimum-number-swaps-required-sort-array/
 
 */
 // C++ program to find minimum number of swaps
@@ -64,25 +65,37 @@ int main()
 	}
 }
 
-//Used selection sort and counted the number of swaps
-//Not sure why this is a part of the Graphs section
+//Using graph logic to compute number of elements in swap cycles and thus minimum swaps to required
 int minSwaps(int A[], int N){
-    /*Your code here */
-    int count =0;
-	for(int i=0;i<N;i++){
-		int min=A[i];
-		int minIndex=i;
-		for(int j=i;j<N;j++){
-			if(A[j]<min){
-			    min=A[j];
-			    minIndex=j;
-			}
-		}
-		if(i!=minIndex){
-			swap(A[i],A[minIndex]);
-			count++;
-		}
-	}
-	return count;
+    
+    pair<int,int> arrPos[N];
+    for(int i=0;i<N;i++){
+    	arrPos[i].first = A[i];
+    	arrPos[i].second = i;
+    }
 
+    // Sort array to determine the cycles for swaps
+    sort(arrPos,arrPos+N);
+
+    // Visited array
+    vector<bool> vis(N,false);
+
+    int count =0;
+    for(int i=0;i<N;i++){
+    	// Already at correct position or already accounted for in cycles
+    	if(vis[i]||arrPos[i].second==i)continue;
+
+    	int j=i;
+    	int cycleSize=0;
+
+    	// Marks current node visited and proceeds to create a cycle graph and counts the nodes in the graph
+    	while(!vis[j]){
+    		vis[j]=1;
+
+    		j = arrPos[j].second;
+    		cycleSize++;
+    	}
+    	if(cycleSize)count+=(cycleSize-1);
+    }
+    return count;
 }
