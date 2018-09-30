@@ -81,23 +81,23 @@ int BFS(int a[][21],Point dest,int n,int m){
 	while(!q.empty()){
 
 		// Get neighbour node
-		Node n = q.front();
+		Node nn = q.front();
 		q.pop();
 
 		// If it is destination node, return distance
-		if(n.p.x == dest.x && n.p.y == dest.y) return n.dist;
+		if(nn.p.x == dest.x && nn.p.y == dest.y) return nn.dist;
 
 		// Add neighbouring nodes to queue for traversal
 		for(int i=0;i<4;i++){
-			int row = n.p.x + rowNum[i];
-			int col = n.p.y + colNum[i];
+			int row = nn.p.x + rowNum[i];
+			int col = nn.p.y + colNum[i];
 			
 			if(isValid(row,col,n,m)&&a[row][col]&&!vis[row][col]){
 				// Mark neighbouring node as visited
 				vis[row][col]=true;
 
 				// Add to queue
-				Node newNode = {{row,col},n.dist+1};
+				Node newNode = {{row,col},nn.dist+1};
 				q.push(newNode);
 			}
 		}
