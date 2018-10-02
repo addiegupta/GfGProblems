@@ -83,7 +83,7 @@ public:
 };
 void dijkstra(int graph[MAX][MAX], int s,int V)
 {
-	// Store distance from source node; 0 or 1 depending on whether node has been included in
+	// dist:Store distance from source node;spt: 0 or 1 depending on whether node has been included in
 	// shortest path tree i.e. minimum distance for node has been determined
     int dist[V],spt[V];
     for(int i=0;i<V;i++){
