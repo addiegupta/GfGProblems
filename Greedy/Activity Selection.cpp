@@ -33,20 +33,32 @@ Input:
 Output:
 4
 
+References: https://www.geeksforgeeks.org/activity-selection-problem-greedy-algo-1/
+
 
 */
 
 #include<bits/stdc++.h>
 using namespace std;
+
+// Structure to store activity start times and finish times
 struct act{
 	int start,finish;
 };
+// Used in sorting the array of activities so that it is sorted in order of finish time
 bool activityCompare(act a1, act a2){return a1.finish<a2.finish;}
+
+
 int activity(int n,act a[]){
 
+	// Sort the array as per finish times
 	sort(a,a+n,activityCompare);
+	// First activity is always selected
 	int count =1;
 	int prev = a[0].finish;
+	
+	// From the remaining activities, select an activity only if its start time
+	// comes after the finish time of the last selected activity
 	for(int j=1;j<n;j++){
 		if(a[j].start>=prev){
 			count++;
@@ -54,7 +66,6 @@ int activity(int n,act a[]){
 		}
 	}
 	return count;
-
 }		
 			
 int main(){				
@@ -64,12 +75,15 @@ int main(){
 		int n;				
 		cin>>n;				
 		act a[n];
+		// Start times of activities
 		for(int i=0;i<n;i++){	
 			cin>>a[i].start;
 		}			
+		// Finish times of activities
 		for(int i=0;i<n;i++){	
 			cin>>a[i].finish;
 		}		
+		//  Print the max number of activities that can be executed
 		cout<<activity(n,a)<<endl;				
 	}									
 	return 0;						
