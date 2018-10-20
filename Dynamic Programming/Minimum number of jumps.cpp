@@ -67,10 +67,10 @@ int minJumpNSquared(int a[],int n){
 }
 // O(n) solution ---------------------------------
 int minJump(int a[],int n){
-	// Ladder is the max number of steps available
+	// Ladder is the max number of steps available without jump
 	int ladder = a[0];
-	// Stairs is the number of stairs left on the ladder
-	int stairs = a[0];
+	// Steps is the number of steps left on the ladder
+	int steps = a[0];
 	// Initialise jump count to 1 as at least 1 jump will be required
 	int jump =1;
 	// No possible solution
@@ -81,14 +81,14 @@ int minJump(int a[],int n){
 		if(i+a[i]>ladder){
 			ladder = i + a[i];
 		}
-		// Decrement stairs as iteration takes place
-		stairs--;
+		// Decrement steps as iteration takes place
+		steps--;
 		// No possible route
-		if(!a[i]&&!stairs)return -1;
-		// End of stairs choose new ladder and increment jump counter
-		if(!stairs){
+		if(!a[i]&&!steps)return -1;
+		// End of steps ;add more steps from updated ladder; increment jump counter
+		if(!steps){
 			jump++;
-			stairs = ladder-i;
+			steps = ladder-i;
 		}
 	}
 	return jump;
