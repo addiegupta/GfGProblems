@@ -41,22 +41,40 @@ bool subsetPartition(int n,int a[]){
 	
 	int sum =0;
 	int i,j;
+
+	// Calculate sum
 	for(int i=0;i<n;i++)sum+=a[i];
+	
+	// Odd sum cannot be partitioned; return false
 	if(sum%2!=0)return false;
 
+	// DP matrix dp[i][j] for bottom up approach
+	// Each column signifies a subset from the array a[0,1,...j-1]
+	// Each row contains true if a subset from the array of the column is equal to sum of i
 	bool dp[sum/2 + 1][n+1];
 
+	// Initialise first row as true as every subset contains 0 as sum
 	for(i=0;i<=n;i++)dp[0][i]=true;
+	// Initialise first column as false except first row as empty array cannot form sums
 	for(i=1;i<=sum/2;i++)dp[i][0]=false;
 
 	for(i=1;i<=sum/2;i++){
 		for(j=1;j<=n;j++){
+			// If subarray without new element has a subset satisfying sum condition then 
+			// so does this subarray as the subset is present in both
 			dp[i][j]=dp[i][j-1];
+
+			// Proceed only if sum required is greater than/equal to
+			// last element of subarray for this column
 			if(i>=a[j-1]){
+				//    Current value|| DP Value for {currentSum - a[j-1]} without considering
+				//  j-1 th element (last element of current subarray) 
+				
 				dp[i][j] = dp[i][j]||dp[i-a[j-1]][j-1];
 			}
 		}
 	}
+	// Return last element of dp matrix which is required value
 	return dp[sum/2][n];
 }
 int main(){

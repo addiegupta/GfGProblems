@@ -81,7 +81,7 @@ int longestIncSubsequence(int a[],int n){
 	// Initialise with first element
 	b[0]=a[0];
 
-	// Iteratre over array
+	// Iterate over array
 	for(int i=1;i<n;i++){
 		// Append to end of increasing subsequence
 		if(a[i]>b[size]){
