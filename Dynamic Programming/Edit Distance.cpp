@@ -41,15 +41,27 @@ Output:
 #include<bits/stdc++.h>
 using namespace std;
 int minEdit(int n1,int n2,string s1,string s2){
-	int cost = 0;
-	int a[n1][n2];
-	for(int i=0;i<n1;i++){
-		for(int j=0;j<n2;j++){
-			
+	
+	// Taking matrix with rows representing letters of s1 ( including a 0 for no character)
+	// and columns representing letters of s2( including 0 )
+	int dp[n1+1][n2+1];
+
+
+	for(int i=0;i<=n1;i++){
+		for(int j=0;j<=n2;j++){
+			// If either string is empty, insertions will be equal to number of characters
+			// in other string
+			if(!i) dp[i][j]=j;
+			else if(!j) dp[i][j]=i;
+			// If character is same, no operation required on this character
+			else if(s1.at(i-1)==s2.at(j-1)) dp[i][j]=dp[i-1][j-1];
+			// Characters not same, take minimum number of operations
+			// from top,left and top-left and add 1 to it(for replace operation)
+			else dp[i][j] = 1+min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));
 		}
 	}
+	return dp[n1][n2];
 }
-
 
 int main(){
 	int t;
