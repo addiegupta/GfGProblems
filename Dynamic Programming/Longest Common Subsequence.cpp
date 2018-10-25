@@ -56,7 +56,7 @@ int longestCommonSubsequence(int n1,int n2,string a,string b){
 
 	// String a is mapped over the rows of matrix while b mapped over columns
 	// Values in matrix will store length of longest common subsequence till selected element
-	// e.g. a = BCD b= CDFG
+	// e.g. string a = BCD, string b= CDFG
 	// Matrix is 
 	// 	    C D F G
 	//	  0 0 0 0 0
