@@ -38,29 +38,27 @@ Testcase 1: Element at 5th position after merging both arrays will be 6.
 #include <bits/stdc++.h>
 #define ll long long int
 using namespace std;
-int elementAtK(ll n,ll m,ll k, ll a[],ll b[]){
-	ll l1 = 0, l2 =0, r1 = min(n-1,k-1), r2 = min(m-1,k-1);
-	ll i,j;
-	while(l1-r1>=2){	
-		i = (l1+r1)/2;
-		j = k-i-1;
-		cout<<"i is "<<i<<" a[i] is "<<a[i]<<endl;
-		cout<<"j is "<<j<<" b[j] is "<<b[j]<<endl;
-		if(j>=m){
+ll elementAtK(ll n,ll m,ll k, ll a[],ll b[]){
 
-			l1=2*(k-m) -r1;
-			cout<<"Continuing\n";
-			continue;
-		}
-		if(a[i]<b[j-1]){
-			l1=i+1;
-		}
-		else if(a[i-1]>b[j]){
-			r1=i-1;
-		}
-		else return min(a[i],b[j]);
-	}
-	return -1;
+	// Keep first array smaller
+	if(n>m) return elementAtK(m,n,k,b,a);
+
+	// Smaller array is empty
+	if(!n) return b[k-1];
+
+	// First element required, return minimum of first in both arrays
+	if(k==1)return min(a[0],b[0]);
+
+	// Divide and Conquer iteration variables
+	ll i = min(n,k/2),j = min(m,k/2);
+
+	// Lowest j found, find k-jth element
+	if(a[i-1]>b[j-1]) return elementAtK(n,m-j,k-j,a,b+j);
+
+	// Lowest i found, find k-ith element
+	else return elementAtK(n-i,m,k-i,a+i,b);
+
+
 }
 int main()
 {
@@ -72,7 +70,6 @@ int main()
 		ll a[n],b[m];
 		for(ll i=0;i<n;i++)cin>>a[i];
 		for(ll i=0;i<m;i++)cin>>b[i];
-		/*if(n>m)*/cout<<elementAtK(n,m,k,a,b)<<endl;
-		// else cout<<elementAtK(m,n,k,b,a)<<endl;
+		cout<<elementAtK(n,m,k,a,b)<<endl;
 	}
 }

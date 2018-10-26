@@ -28,12 +28,39 @@ Input:
 Output:
 4
 
+References: https://www.geeksforgeeks.org/find-the-element-that-appears-once-in-a-sorted-array/
+
 */
 
 #include <bits/stdc++.h>
 #define ll long long int
 using namespace std;
+// O (log n)-----------------------------------
+
+// Works on the idea that if single element has not been occured ,
+// then first occurence of normal elements is at even index and second is at odd
+// whereas if single element has occured , it is the opposite
 ll singleElement(ll a[],ll n){
+	ll l=0,r=n-1,mid;
+	while(l<=r){
+		mid = (l+r)/2;
+
+
+		if(mid%2==0){
+			if(a[mid]==a[mid+1])l=mid+1;
+			else if(a[mid]==a[mid-1])r=mid-1;
+			else return a[mid];
+		}
+		else{
+			if(a[mid]==a[mid-1])l=mid+1;
+			else if(a[mid]==a[mid+1])r=mid-1;
+			else return a[mid];
+		}
+	}
+
+}
+// O(n) ------------------------------------
+ll singleElementOn(ll a[],ll n){
 	for(ll i=0;i<n;i+=2){
 		if(a[i]!=a[i+1]) return a[i];
 	}
