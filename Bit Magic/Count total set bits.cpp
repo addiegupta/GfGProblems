@@ -43,9 +43,49 @@ An easy way to look at it is to consider the number, n = 4:
 Therefore , the total number of bits is 5
 
 
+----------------------------------------------------------------
+
+References: https://www.geeksforgeeks.org/count-set-bits-in-an-integer/
+			https://www.geeksforgeeks.org/count-total-set-bits-in-all-numbers-from-1-to-n/
+
+--------------------------------------------------------------------
+
 */
 #include<bits/stdc++.h>
 using namespace std;
+// This works on the principle that the bit at i'th position changes after every
+// 2^i iterations vertically down.
+int verticalCount(int n){
+	int ans=0;
+	int i=0;
+
+
+	while((1<<i)<=n){
+	
+		// Set or not
+		bool k=0;
+
+		// Change value of k
+		int change = 1<<i;
+
+		// Vertically iterate over bit i for numbers 1 to n
+		for(int j=0;j<=n;j++){
+			// Add value i.e. if k=1, bit is set=> count bit
+			ans+=k;
+			// Toggle
+			if(change==1){
+				k=!k;
+				change = 1<<i;
+			}
+			else{
+				// Decrement counter
+				change--;
+			}
+		}
+		i++;
+	}
+	return ans;
+}
 int brianKernighansBitCount(int);
 void computeAnswer(int ans[]){
 	ans[0]=0;
@@ -79,7 +119,9 @@ int main(){
 	while(t--){
 		int n;
 		cin>>n;
-		cout<<ans[n]<<endl;
+		//Multiple ways to compute;check references
+		cout<<verticalCount(n)<<endl;
+		// cout<<ans[n]<<endl;
 	}
 	return 0;
 }
