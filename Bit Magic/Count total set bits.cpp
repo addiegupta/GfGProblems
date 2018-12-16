@@ -50,7 +50,10 @@ int brianKernighansBitCount(int);
 void computeAnswer(int ans[]){
 	ans[0]=0;
 	for(int i=1;i<1001;i++){
+		// Using Brian Kernighans Bit Count Algorithm
 		ans[i]=ans[i-1]+brianKernighansBitCount(i);
+		// Using Built in function
+		// ans[i]=ans[i-1]+ __builtin_popcount(i);
 	}
 }
 int brianKernighansBitCount(int n){
