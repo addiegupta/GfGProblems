@@ -28,6 +28,8 @@ aaaabbaa
 Output:
 aabbaa
 
+References: https://www.geeksforgeeks.org/longest-palindromic-substring-set-2/
+
 */
 
 #include<bits/stdc++.h>
