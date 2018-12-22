@@ -46,34 +46,67 @@ Output:
 #include<bits/stdc++.h>
 #include<string>
 using namespace std;
-// Removes duplicates and returns string
-string removeDuplicates(string s){
-	// Hash to keep track if character has been seen before
-	bool hash[256];
-	memset(hash,0,sizeof(hash));
-	string ans="";
-	for(int i=0;i<s.length();i++){
-		// Append char to ans string if not seen before
-		// Add to hash to represent that this character has been seen 
-		if(!hash[s[i]]){
-			hash[s[i]]=true;
-			ans.append(1,s[i]);
-		}
+bool isPalindrome(string s){
+	int n= s.length();
+	string rev = s;
+	for(int i=0;i<n/2;i++){
+		char temp=rev[i];
+		rev[i]=rev[n-i-1];
+		rev[n-i-1]=temp;
 	}
-	return ans;
+	// cout<<"S is "<<s<<" rev is "<<rev<<endl;
+	return s==rev;
+}
+int palindromeOf(string s){
+	int n=s.length();
+	int max=1;
+	int low,high;
+	for(int i=1;i<n;i++){
+		low = i-1;
+		high =i;
+		int count=0;
+		while(low>=0 and high<n and s[low]==s[high]){
+			
+			if(high-low+1>max) max = high-low+1;
+			low--;
+			high++;
+		}
+		// if(max<count)max=count;
+
+		low =i-1;
+		high = i+1;
+		count =1;
+		while(low>=0 and high<n and s[low]==s[high]){
+			if(high-low+1>max) max = high-low+1;
+			low--;
+			high++;
+		}
+		// if(max<count)max=count;
+	}
+	return n-max;
+
+
+
+
+	for(int i=1;i<=n;i++){
+		string sub = s.substr(0,i);
+		if(isPalindrome(sub) and max<sub.length()) max = sub.length();
+	}
+	for(int i=1;i<=n;i++){
+		string sub=s.substr(n-i,i);
+		if(isPalindrome(sub) and max<sub.length()) max = sub.length();
+	}
+	return n-max;
 }
 int main(){
 	int t;
 	cin>>t;
-	// Used to ignore the '\n' after entering number of test cases
-	// This ignore is required before using getline otherwise '\n' gets in buffer for getline
-	cin.ignore();
 	while(t--){
 		//Input string
 		string s;
-		getline(cin,s);
-		cout<<removeDuplicates(s)<<endl;
-
+		cin>>s;
+		// cout<<isPalindrome(s)<<endl;
+		cout<<palindromeOf(s)<<endl;
 	}
 	return 0;
 }
