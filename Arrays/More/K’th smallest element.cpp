@@ -40,29 +40,48 @@ Output:
 7
 15
 
+References: https://practice.geeksforgeeks.org/editorial.php?pid=1301
+
 */
 
-// O(n) solution average in More/K'th smallest element
+
 #include<iostream>
 #include <bits/stdc++.h>
 using namespace std;
+int partition(int a[],int l,int r){
+	int p = a[r];
+	int i=l-1;
+	for(int j=l;j<r;j++){
+		if(a[j]<=p){
+			i++;
+			swap(a[i],a[j]);
+		}
+	}
+	swap(a[i+1],a[r]);
+	return i+1;
+}
+
+int quickSelect(int a[],int l,int r,int k){
+    if(k>0 && k<= r-l+1){
+	    int p = partition(a,l,r);
+	    if(p-l==k-1) return a[p];
+	    else if(p-l>k-1) return quickSelect(a,l,p-1,k);
+	    else return quickSelect(a,p+1,r,k-p+l-1);
+    }
+    return a[k-1];
+    return -1;
+}
 int main()
  {
  	int t;
  	cin>>t;
-
  	while(t--){
- 		int n,a[1000],k;
+ 		int n,k;
  		cin>>n;
- 		for(int i=0;i<n;i++){
- 			cin>>a[i];
- 		}
+ 		int a[n];
+ 		for(int i=0;i<n;i++)cin>>a[i];
  		cin>>k;
- 		// Sort array using inbuilt C++ sort function
- 		sort(a,a+n);
- 		// Print the kth smallest element as array is sorted
- 		cout<<a[k-1]<<endl;
- 		
+ 		cout<<quickSelect(a,0,n-1,k)<<endl;
  	}
 	return 0;
 }
