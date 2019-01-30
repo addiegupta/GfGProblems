@@ -143,9 +143,10 @@ void saveValue(Node* root,int height);
 void bottomView(Node *root)
 {
   // Your Code Here
-  // Save value at index equal to horizontal height in a map
-  map<int,int> newList;
-  nodeList=newList;
+
+  
+ // Remove nodes for previous test case
+ nodeList.clear();
 
   saveValue(root,0);
   // Print bottom value. auto determines the type
