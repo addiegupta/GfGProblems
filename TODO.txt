@@ -4,3 +4,4 @@
 
 3. Redo Strings/Longest Common Prefix in an Array using Trie Data Structure https://www.geeksforgeeks.org/longest-common-prefix-using-trie/
 4. Complete Rabin Karp Algo in Strings/Implement strstr
+5. Strings/More/CamelCase is incomplete
