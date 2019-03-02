@@ -60,6 +60,18 @@ Driver Code to call/invoke your function is mentioned above.*/
    matches the string str
 Your are required to complete this method */
 
+
+
+int ZPatternSearch(string s,string x);
+int naivePatternSearch(string s, string x);
+int KMPPatternSearch(string s,string x);
+
+int strstr(string s,string x){
+	// return naivePatternSearch(s,x);
+	// return ZPatternSearch(s,x);
+	return KMPPatternSearch(s,x);
+}
+
 // Naive approach
 int naivePatternSearch(string s, string x)
 {
@@ -145,8 +157,9 @@ int ZPatternSearch(string s,string x){
 }
 // Pre processes the pattern string for longest proper prefix lengths that are also suffix
 void computeKmpLps(int lps[], string x){
-	int i=0,m=x.length(),len=0;
+	int i=1,m=x.length(),len=0;
 
+	lps[0]=0;
 	// Traverse through pattern
 	while(i<m){
 		// Matching letters
@@ -176,13 +189,14 @@ void computeKmpLps(int lps[], string x){
 // Knuth Morris Pratt Pattern Searching Algorithm
 int KMPPatternSearch(string s,string x){
 	int m = x.length(),n=s.length();
-
+	if(n==0 || m ==0 )return -1;
 	// Obtain lps array
 	int lps[m];
-	computeLps(lps,x);
+	computeKmpLps(lps,x);
 
 	// Iterators for text and pattern
 	int i=0,j=0;
+
 	// Iterate over text
 	while(i<n){
 		// Matching characters
@@ -204,4 +218,5 @@ int KMPPatternSearch(string s,string x){
 			else i++;
 		}
 	}	
+	return -1;
 }
