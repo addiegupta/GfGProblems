@@ -55,90 +55,47 @@ Output:
 
 */
 
-
+// See version history for previous untidy solution
 #include<iostream>
 using namespace std;
-int max(int,int);
-int min(int,int);
+
+// Stores max on left and max on right for every element in 2 arrays
+int trappedWater(int arr[],int n){
+
+	// Store max on left and right
+	int leftMax[n],rightMax[n];
+
+	int leftMaxValue=arr[0],rightMaxValue=arr[n-1];
+	for(int i=1;i<n;i++){
+		if(arr[i]>leftMaxValue)leftMaxValue = arr[i];
+		leftMax[i]=leftMaxValue;
+	}
+	for(int i=n-2;i>=0;i--){
+		if(arr[i]>rightMaxValue)rightMaxValue = arr[i];
+		rightMax[i]=rightMaxValue;
+	}
+
+	int ans=0;
+	for(int i=1;i<n-1;i++){
+		// Min on either side will be the max water stored at this point
+		ans += (min(leftMax[i],rightMax[i]) - arr[i]);
+	}
+	// return total amount of water trapped
+	return ans;
+}
+
 int main()
  {
- 	int t;
- 	cin>>t;
-
- 	while(t--){
- 		// Array b stores the water level at given position
-		int a[100],n,b[100],i,j;
-		cin>>n;
-
-		for(i=0;i<n;i++){
-			cin>>a[i];
-		}
-		// The smaller out of the first and last value in the array
-		int minFirstLast = min(a[0],a[n-1]);
-		// Initialise the water level to minimum bar height
-		for(i=0;i<n;i++){
-			b[i]=minFirstLast;
-		} 		
-		// Index of largest bar height and second largest bar height
-		int im1=0,im2=0;
-
-		for(i =1;i<n;i++){
-
-			// New largest bar height found
-			if(a[i]>a[im1]){
-				// Update largest and second largest bar heights
-				im2=im1;
-				im1=i;
-
-				// Set water level to second largest level on the positions between largest and second largest value
-				int li = min(im1,im2);
-				int ui = max(im1,im2);
-				for(j=li;j<=ui;j++){
-					b[j]=a[im2];
-				}
-				// Set current level to current height
-				b[i]=a[i];
-			}
-			// Level found which is not equal to maximum but is larger than current water level
-			else if(a[i]<=a[im1]&&a[i]>b[i]){
-				im2 =i;
-				j=i;
-
-				// Set water level of previous positions to current level till a higher value is found
-				while(b[j]<a[im2]){
-					b[j]=a[im2];
-					j--;
-				}
-			}
-		}
-		// Count the total amount of water
-		int w=0;
-		for(i=1;i<n-1;i++){
-			if(b[i]>a[i]){
-				w+=b[i]-a[i];
-			}
-		}
-		cout<<w<<endl;
-	}	
- 	
+	//code
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    int a[n];
+	    for(int i=0;i<n;i++)cin>>a[i];
+	    int trapped = trappedWater(a,n);
+	    cout<<trapped<<endl;
+	}
 	return 0;
-}
-
-// Returns the larger value out of 2 given numbers
-int max(int a,int b){
-	if(a>b){
-		return a;
-	}
-	else{
-		return b;
-	}
-}
-// Returns the smaller value out of 2 given numbers
-int min(int a,int b){
-	if(a<b){
-		return a;
-	}
-	else{
-		return b;
-	}
 }
