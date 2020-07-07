@@ -86,3 +86,37 @@ int main()
  	}
 	return 0;
 }
+//Cleaner code 6 July 2020
+int main()
+ {  
+    int t;
+ 	cin>>t;
+
+ 	while(t--){
+ 		int n,s;
+ 		cin>>n>>s;
+ 		int a[n];
+ 		for(int i=0;i<n;i++){
+ 			cin>>a[i];
+ 		}
+ 		int start=0,end=0,sum=0;
+ 		
+ 		while(start<=n &&end<=n){
+ 		    
+ 		    if(sum==s)break;
+ 		    if(sum<s){
+ 		        if(end==n)break;
+ 		        sum+=a[end++];
+ 		    }
+ 		    else if(sum>s){
+ 		        if(start==n)break;
+ 		        sum -=a[start++];
+ 		    }
+ 		}
+ 		if(sum==s){
+ 		    cout<<start+1<<" "<<end;
+ 		}
+ 		else cout<<-1;
+ 		cout<<endl;
+ 	}
+ }

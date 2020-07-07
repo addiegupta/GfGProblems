@@ -127,3 +127,71 @@ int main(){
 	}
 	return 0;
 }
+
+
+//Improved (?) code on 7 July 2020 in Java in O(n) space
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+    private static void recur(ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> board,int pos,int n){
+        if(pos==n){
+            ans.add(new ArrayList<Integer>(board));
+            return;
+        }
+        for(int i=0;i<n;i++){
+            // If a valid position, place it and recur    
+            // check if pos,i is a valid location
+            boolean isValid = true;
+            for(int j=0;j<pos;j++){
+                // Check column
+                if(board.get(j)==i+1){
+                    isValid=false;
+                    break;
+                }
+                // Check diagonal
+                if(pos-i == j-board.get(j)+1){
+                    isValid = false;
+                    break;
+                }
+                // Check other diagonal
+                if(pos+i == j+board.get(j)-1){
+                    isValid = false;
+                    break;
+                }
+            }
+            if(isValid){
+                // Recur
+                board.add(i+1);
+                recur(ans,board,pos+1,n);
+                board.remove(board.size()-1);
+            // Else remove it and next iteration will continue
+            }
+        }
+        
+    }
+	public static void main (String[] args) {
+	    
+	    Scanner sc = new Scanner(System.in);
+	    int t = sc.nextInt();
+	    while(t--!=0){
+	        
+    	    int n = sc.nextInt();
+    	    ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+    	    ArrayList<Integer> board = new ArrayList<Integer>();
+    	    recur(ans,board,0,n);
+    	    for(int i=0;i<ans.size();i++){
+    	        System.out.print("[");
+    	        for(int j=0;j<ans.get(i).size();j++){
+    	            System.out.print(ans.get(i).get(j)+" ");
+    	            
+    	        }
+    	        System.out.print("] ");
+    	    }
+    	    if(ans.size()==0)System.out.print("-1");
+    	    System.out.println();
+	    }
+		//code
+	}
+}
