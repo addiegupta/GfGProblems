@@ -71,3 +71,31 @@ int main()
 	}	
 	return 0;
 }
+
+// Solution with priority queue java on 13 july 2020
+
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) {
+		//code
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t--!=0){
+		    int k = sc.nextInt();
+		    int n = sc.nextInt();
+		    PriorityQueue<Integer> heap = new PriorityQueue<Integer>();
+		    while(n--!=0){
+		        int a = sc.nextInt();
+		        heap.offer(a);
+		        if(heap.size()>k)heap.poll();
+		        int ans = (heap.size()==k)?heap.peek():-1;
+		        System.out.print(ans+" ");
+		    }
+		    System.out.println();
+		}
+	}
+}

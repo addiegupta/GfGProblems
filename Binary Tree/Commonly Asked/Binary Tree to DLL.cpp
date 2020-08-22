@@ -197,3 +197,38 @@ void inorderTraverse(Node *root){
         inorderTraverse(root->right);
     }    
 }
+
+// Similar code 13 July 2020 in java
+
+class GfG
+{
+    Node dllHead=null;
+    Node bToDLL(Node root)
+    {
+  //  Your code here  
+      dllHead=null;
+      convert(root,null);
+      return dllHead;
+      
+    }
+    Node convert(Node root,Node dllTail){
+        if(root==null)return dllTail;
+        
+        // left
+        Node leftTail = convert(root.left,dllTail);
+        if(leftTail==null)leftTail = dllTail;
+        if(dllHead==null){
+            dllHead=leftTail=root;
+        }
+        // center
+        else {
+            leftTail.right = root;
+            root.left=leftTail;
+            leftTail = leftTail.right;
+        }
+        //right
+        Node rightTail = convert(root.right,leftTail);
+        return rightTail;
+        
+    }
+}

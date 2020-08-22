@@ -145,3 +145,30 @@ int dfsBalance(Node* root){
 	}
 		return dfsBalance(root->left)+dfsBalance(root->right) + unbalanced;
 }
+
+// Somewhat cleaner code 13 july 2020 java
+
+
+class Tree
+{
+    
+     /* This function should return tree if passed  tree 
+     is balanced, else false. */
+    boolean isBalanced(Node root)
+    {
+  // Your code here
+      int left = trav(root.left);
+      int right = trav(root.right);
+      if(left==-1||right==-1)return false;
+      return Math.abs(left-right)<=1;
+        
+    }
+    int trav(Node root){
+        if(root==null)return 0;
+        int left = trav(root.left);
+        int right = trav(root.right);
+        if(left==-1 || right==-1)return -1;
+        if(Math.abs(left-right)>1)return -1;
+        return Math.max(left,right)+1;
+    }
+}

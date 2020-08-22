@@ -77,3 +77,42 @@ int main(){
         else cout<<floor((v[s/2-1]+v[s/2])/2)<<endl;  
     }
 }
+
+// Java code using maxHeap for left and minheap for right added on 10 July 2020
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+    public static void main (String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(Collections.reverseOrder());
+        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
+        
+        while(n--!=0){
+            int x = sc.nextInt();
+            int left = (maxHeap.isEmpty())?Integer.MAX_VALUE:maxHeap.peek();
+            int right = (minHeap.isEmpty())?Integer.MIN_VALUE:minHeap.peek();
+            if(x<left)maxHeap.add(x);
+            else if(x>right)minHeap.add(x);
+            else{
+                if(minHeap.size()>maxHeap.size()) maxHeap.add(x);
+                else minHeap.add(x);
+            }
+           
+            // now balance the heaps so median is received
+            if(Math.abs(minHeap.size()-maxHeap.size())>1){
+                if(minHeap.size()>maxHeap.size()){
+                    maxHeap.add(minHeap.poll());
+                }
+                else minHeap.add(maxHeap.poll());
+            }
+            
+            if(minHeap.size()==maxHeap.size()){
+                System.out.println((minHeap.peek()+maxHeap.peek())/2);
+            }
+            else System.out.println((minHeap.size()>maxHeap.size())?minHeap.peek():maxHeap.peek());
+        }
+    }
+}

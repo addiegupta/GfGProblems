@@ -167,3 +167,25 @@ void checkRight(Node* root,int min,int max){
     bst = false;
   }
 }
+
+// Cleaner solution on 13 July 2020 java
+
+
+public class Tree
+{
+    // return true if the given tree is a BST, else return false
+    boolean isBST(Node root)
+        {
+          // Should be the range of values of children
+            return isBstUtil(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
+            
+        }
+        
+        boolean isBstUtil(Node root,int min,int max){
+            if(root==null)return true;
+            // value should be in range
+            if(root.data<min || root.data>=max)return false;
+            // left children should have less value, right should have more
+            return isBstUtil(root.left,min,root.data)&& isBstUtil(root.right,root.data,max);
+        }
+}
